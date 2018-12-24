@@ -7,8 +7,7 @@ The architecture of this framework borrows concepts from both NLog and Serilog b
 ### Loggers
 1. SimpleDebugLogger - Writes log entries to the debug window.  Enabled by default.
 2. SimpleConsoleLogger - Writes log entries to the console.
-3. SimpleFileLogger - Writes log entries to a file.
-	a. Allows you to specify a MaxFileSizeBytes and MaxArchiveFileCount to manage log file size, log history, disk space consumption, etc.
+3. SimpleFileLogger - Writes log entries to a file which allows you to specify a MaxFileSizeBytes and MaxArchiveFileCount to manage log file size, log history, disk space consumption, etc.
 
 ## Sample Code
 This sample code configures the log manager to write log entires to the debug window and a log file located in the same folder as the executing assembly.  Log files will be archived once the log file size exceeds 500k and only the 3 most recent archived log files will be kept.
