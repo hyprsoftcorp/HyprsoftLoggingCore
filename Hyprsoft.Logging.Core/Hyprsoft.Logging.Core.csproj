@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Hyprsoft Corporation</Authors>
+    <Product>Hyprsoft File Logger</Product>
+    <Copyright>Copyright © 2019 by Hyprsoft Corporation</Copyright>
+    <PackageProjectUrl>http://www.hyprsoft.com/</PackageProjectUrl>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.0.4</Version>
+  </PropertyGroup>
+
+</Project>
