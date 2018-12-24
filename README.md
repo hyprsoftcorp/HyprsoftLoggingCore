@@ -15,8 +15,8 @@ This sample code configures the log manager to write log entires to the debug wi
 var logger = new SimpleLogManager();
 logger.AddLogger(new SimpleFileLogger(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "myapp-log.log"))
 {
-	MaxFileSizeBytes = 524288,
-	MaxArchiveFileCount = 3
+	MaxFileSizeBytes = 524288,	// Defaults to 0 (no archiving).
+	MaxArchiveFileCount = 3	// Defaults to 5.
 });
 await logger.LogAsync<LoggerTests>(LogLevel.Info, "Hello world!");
 ```

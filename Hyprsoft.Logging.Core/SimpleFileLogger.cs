@@ -58,7 +58,7 @@ namespace Hyprsoft.Logging.Core
                         .Where(f => String.Compare(f, Filename, true) != 0)
                         .Select(f => new FileInfo(f))
                         .OrderBy(f => f.LastWriteTime).ToList();
-                    if (files.Count >= MaxArchiveFileCount)
+                    if (MaxArchiveFileCount > 0 && files.Count >= MaxArchiveFileCount)
                         files[0].Delete();
                     fileInfo.MoveTo(Path.Combine(Path.GetDirectoryName(Filename), $"{Path.GetFileNameWithoutExtension(Filename)}-{Guid.NewGuid().ToString("N")}{Path.GetExtension(Filename)}"));
                     fileInfo = new FileInfo(Filename);
