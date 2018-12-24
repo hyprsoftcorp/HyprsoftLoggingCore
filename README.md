@@ -1,0 +1,2 @@
+# HyprsoftLoggingCore
+Simple logging framework.
