@@ -16,7 +16,7 @@ namespace Hyprsoft.Logging.Core
 
         protected override Task OnLogAsync<T>(LogLevel logLevel, string message)
         {
-            Debug.WriteLine($"{logLevel.ToString().ToUpper()}:\t{typeof(T).FullName} @ {DateTime.Now}\n\t{message}");
+            Trace.WriteLine($"{logLevel.ToString().ToUpper()}:\t{typeof(T).FullName} @ {DateTime.Now}\n\t{message}");
             return Task.CompletedTask;
         }
 
