@@ -24,5 +24,5 @@ await logger.LogAsync<LoggerTests>(LogLevel.Info, "Hello world!");
 ### Output
 ```
 INFO:	Hyprsoft.Logging.Tests.LoggerTests @ 12/24/2018 9:20:15 AM
-	Hellow world!
+	Hello world!
 ```
