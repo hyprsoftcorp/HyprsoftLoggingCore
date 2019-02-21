@@ -61,7 +61,7 @@ class Program
 }
 ```
 
-### ASP.NET MVC Web App
+### ASP.NET Core MVC Web App
 ```csharp
 using Microsoft.AspNetCore.Hosting;
 using Hyprsoft.Logging.Core;
@@ -85,7 +85,7 @@ public class Program
 }
 ```
 
-### Output
+### Sample Output
 ```
 INFO: Hyprsoft.Logging.TestWeb.FakeService @ 2/20/2019 5:40:54 PM
 	Hello World!
