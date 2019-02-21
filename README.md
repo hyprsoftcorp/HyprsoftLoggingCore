@@ -5,7 +5,7 @@ The SimpleFileLogger writes log entries to a file which allows you to specify a 
 ### Logger Options
 Name | Description | Default
 --- | --- | ---
-RootFolder | Log file folder name. | Current executing assembly folder.
+RootFolder | Log file folder name. | Entry assembly folder.
 Filename | Filename of the log file. | app-log.log
 LogLevel | Logger log level. | LogLevel.Information
 MaxFileSizeBytes | The maximum file size in bytes before the log file is archived. | 0 - no archiving will occur.

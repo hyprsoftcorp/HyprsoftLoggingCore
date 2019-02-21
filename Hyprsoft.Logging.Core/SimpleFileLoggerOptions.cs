@@ -12,7 +12,7 @@ namespace Hyprsoft.Logging.Core
         public const int DefaultMaxFileSizeBytes = 0;
         public const int DefaultMaxArchiveFileCount = 5;
 
-        public string RootFolder { get; set; } = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        public string RootFolder { get; set; } = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
         public string Filename { get; set; } = DefaultLogFilename;
 
