@@ -101,6 +101,7 @@ namespace Hyprsoft.Logging.Tests
         {
             using (var provider = new SimpleFileLoggerProvider(new SimpleFileLoggerOptions
             {
+                RootFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
                 LogLevel = LogLevel.Trace,
                 MaxFileSizeBytes = 1024
             }))
@@ -124,7 +125,11 @@ namespace Hyprsoft.Logging.Tests
 
         private async Task ValidateLogEntriesAsync(LogLevel logLevel, Dictionary<int, string> truth)
         {
-            using (var provider = new SimpleFileLoggerProvider(new SimpleFileLoggerOptions { LogLevel = logLevel }))
+            using (var provider = new SimpleFileLoggerProvider(new SimpleFileLoggerOptions
+            {
+                RootFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
+                LogLevel = logLevel
+            }))
             {
                 var logger = provider.CreateLogger(CategoryName);
 
