@@ -11,21 +11,24 @@ namespace Hyprsoft.Logging.Core
     {
         #region Methods
 
-        public static ILoggerFactory AddSimpleFileLogger(this ILoggerFactory loggerFactory, SimpleFileLoggerOptions options)
+        public static ILoggerFactory AddSimpleFileLogger(this ILoggerFactory loggerFactory, LogLevel minLevel = LogLevel.Information)
         {
+            var options = new SimpleFileLoggerOptions();
+            return loggerFactory.AddSimpleFileLogger(options, minLevel);
+        }
+
+        public static ILoggerFactory AddSimpleFileLogger(this ILoggerFactory loggerFactory, SimpleFileLoggerOptions options, LogLevel minLevel = LogLevel.Information)
+        {
+            options.Filter = level => level >= minLevel && level != LogLevel.None;
             loggerFactory.AddProvider(new SimpleFileLoggerProvider(options));
             return loggerFactory;
         }
-        public static ILoggerFactory AddSimpleFileLogger(this ILoggerFactory loggerFactory)
-        {
-            var settings = new SimpleFileLoggerOptions();
-            return loggerFactory.AddSimpleFileLogger(settings);
-        }
-        public static ILoggerFactory AddSimpleFileLogger(this ILoggerFactory loggerFactory, Action<SimpleFileLoggerOptions> options)
+
+        public static ILoggerFactory AddSimpleFileLogger(this ILoggerFactory loggerFactory, Action<SimpleFileLoggerOptions> options, LogLevel minLevel = LogLevel.Information)
         {
             var o = new SimpleFileLoggerOptions();
             options(o);
-            return loggerFactory.AddSimpleFileLogger(o);
+            return loggerFactory.AddSimpleFileLogger(o, minLevel);
         }
 
         public static ILoggingBuilder AddSimpleFileLogger(this ILoggingBuilder builder)

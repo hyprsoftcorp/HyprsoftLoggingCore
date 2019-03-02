@@ -17,11 +17,12 @@ namespace Hyprsoft.Logging.Core
 
         public string Filename { get; set; } = DefaultLogFilename;
 
-        public Func<LogLevel, bool> Filter { get; set; } = logLevel => logLevel != LogLevel.None;
-
         public int MaxFileSizeBytes { get; set; } = DefaultMaxFileSizeBytes;
 
         public int MaxArchiveFileCount { get; set; } = DefaultMaxArchiveFileCount;
+
+        // Defaults to using ILoggingBuilder as opposed to ILoggerFactory.
+        internal Func<LogLevel, bool> Filter { get; set; } = logLevel => logLevel != LogLevel.None;
 
         #endregion
     }

@@ -29,11 +29,23 @@ namespace Hyprsoft.Logging.TestConsole
             #region Not using Dependency Injection
 
             var factory = new LoggerFactory();
-            factory.AddSimpleFileLogger();
-            factory.AddConsole();
+            factory.AddSimpleFileLogger(LogLevel.Trace);
+            factory.AddConsole(LogLevel.Trace);
 
             var logger = factory.CreateLogger<Program>();
-            logger.LogInformation("Hello World!");
+            logger.LogCritical("Critical");
+            logger.LogDebug("Debug");
+            try
+            {
+                throw new InvalidOperationException("Uh oh...something bad happened.");
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error");
+            }
+            logger.LogInformation("Information");
+            logger.LogTrace("Trace");
+            logger.LogWarning("Waning");
 
             #endregion
 
