@@ -7,9 +7,9 @@ Name | Description | Default
 --- | --- | ---
 RootFolder | Log file folder name. | Entry assembly folder.
 Filename | Filename of the log file. | app-log.log
-LogLevel | Logger log level. | LogLevel.Information
 MaxFileSizeBytes | The maximum file size in bytes before the log file is archived. | 0 - no archiving will occur.
 MaxArchiveFileCount | The number of archive files to retain. | 5
+Filter | Callback to validate if the logger is enabled for the specfied log level. | logLevel => logLevel != LogLevel.None
 
 ## Sample Code
 ### Console Application (DI)
