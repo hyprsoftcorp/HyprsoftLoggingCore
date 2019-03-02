@@ -102,7 +102,6 @@ namespace Hyprsoft.Logging.Tests
             using (var provider = new SimpleFileLoggerProvider(new SimpleFileLoggerOptions
             {
                 RootFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
-                LogLevel = LogLevel.Trace,
                 MaxFileSizeBytes = 1024
             }))
             {
@@ -110,7 +109,7 @@ namespace Hyprsoft.Logging.Tests
                 for (var i = 1; i <= 10; i++)
                 {
                     for (var j = 1; j <= 15; j++)
-                        logger.LogTrace($"{i}-{j}");
+                        logger.LogInformation($"{i}-{j}");
 
                     // It appears as though we can write files too quickly so that sorting them later by LastWriteTime
                     // doesn't work properly.  Based on the docs there is some caching going on.  This seems to fix it.
@@ -128,7 +127,7 @@ namespace Hyprsoft.Logging.Tests
             using (var provider = new SimpleFileLoggerProvider(new SimpleFileLoggerOptions
             {
                 RootFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
-                LogLevel = logLevel
+                Filter = level => level >= logLevel && level != LogLevel.None
             }))
             {
                 var logger = provider.CreateLogger(CategoryName);

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using System;
 
 namespace Hyprsoft.Logging.TestConsole
 {
@@ -13,7 +14,19 @@ namespace Hyprsoft.Logging.TestConsole
 
         public void DoSomething()
         {
-            _logger.LogInformation("Hello World!");
+            _logger.LogCritical("Critical");
+            _logger.LogDebug("Debug");
+            try
+            {
+                throw new InvalidOperationException("Uh oh...something bad happened.");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error");
+            }
+            _logger.LogInformation("Information");
+            _logger.LogTrace("Trace");
+            _logger.LogWarning("Waning");
         }
     }
 }

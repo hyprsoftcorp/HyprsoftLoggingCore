@@ -14,6 +14,7 @@ namespace Hyprsoft.Logging.TestConsole
             var services = new ServiceCollection();
             var serviceProvider = services.AddLogging(builder =>
             {
+                builder.SetMinimumLevel(LogLevel.Trace);
                 builder.AddSimpleFileLogger();
                 builder.AddConsole();
             })

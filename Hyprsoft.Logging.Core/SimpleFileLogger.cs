@@ -10,17 +10,17 @@ namespace Hyprsoft.Logging.Core
         #region Fields
 
         private readonly string _category;
-        private SimpleFileLoggerOptions _settings;
+        private readonly SimpleFileLoggerOptions _options;
         private readonly object _lock = new object();
 
         #endregion
 
         #region Constructors
 
-        internal SimpleFileLogger(string category, SimpleFileLoggerOptions settings)
+        internal SimpleFileLogger(string category, SimpleFileLoggerOptions options)
         {
             _category = category;
-            _settings = settings;
+            _options = options;
         }
 
         #endregion
@@ -34,7 +34,7 @@ namespace Hyprsoft.Logging.Core
 
         public bool IsEnabled(LogLevel logLevel)
         {
-            return logLevel >= _settings.LogLevel && logLevel != LogLevel.None;
+            return _options.Filter.Invoke(logLevel);
         }
 
         public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
@@ -44,27 +44,54 @@ namespace Hyprsoft.Logging.Core
 
             lock (_lock)
             {
-                var fullFilename = Path.Combine(_settings.RootFolder, _settings.Filename);
+                var fullFilename = Path.Combine(_options.RootFolder, _options.Filename);
                 var fileInfo = new FileInfo(fullFilename);
-                if (_settings.MaxFileSizeBytes > 0 && fileInfo.Exists && fileInfo.Length > _settings.MaxFileSizeBytes)
+                if (_options.MaxFileSizeBytes > 0 && fileInfo.Exists && fileInfo.Length > _options.MaxFileSizeBytes)
                 {
-                    var files = Directory.GetFiles(_settings.RootFolder, $"{Path.GetFileNameWithoutExtension(_settings.Filename)}*{Path.GetExtension(_settings.Filename)}")
+                    var files = Directory.GetFiles(_options.RootFolder, $"{Path.GetFileNameWithoutExtension(_options.Filename)}*{Path.GetExtension(_options.Filename)}")
                         .Where(f => String.Compare(f, fullFilename, true) != 0)
                         .Select(f => new FileInfo(f))
                         .OrderBy(f => f.LastWriteTime).ToList();
-                    if (_settings.MaxArchiveFileCount > 0 && files.Count >= _settings.MaxArchiveFileCount)
+                    if (_options.MaxArchiveFileCount > 0 && files.Count >= _options.MaxArchiveFileCount)
                         files[0].Delete();
-                    fileInfo.MoveTo(Path.Combine(_settings.RootFolder, $"{Path.GetFileNameWithoutExtension(_settings.Filename)}-{Guid.NewGuid().ToString("N")}{Path.GetExtension(_settings.Filename)}"));
-                    fileInfo = new FileInfo(Path.Combine(_settings.RootFolder, _settings.Filename));
+                    fileInfo.MoveTo(Path.Combine(_options.RootFolder, $"{Path.GetFileNameWithoutExtension(_options.Filename)}-{Guid.NewGuid().ToString("N")}{Path.GetExtension(_options.Filename)}"));
+                    fileInfo = new FileInfo(Path.Combine(_options.RootFolder, _options.Filename));
                 }
                 using (var writer = fileInfo.AppendText())
                 {
                     if (eventId == 0)
-                        writer.WriteLine($"{logLevel.ToString().Substring(0, 4).ToUpper()}: {_category} @ {DateTime.Now}\n\t{formatter(state, exception)}");
+                        writer.WriteLine($"{ToShortLogLevel(logLevel)}: {_category} @ {DateTime.Now.ToString("g")}\n\t{formatter(state, exception)}");
                     else
-                        writer.WriteLine($"{logLevel.ToString().Substring(0, 4).ToUpper()}: {eventId} {_category} @ {DateTime.Now}\n\t{formatter(state, exception)}");
+                        writer.WriteLine($"{ToShortLogLevel(logLevel)}: {eventId} {_category} @ {DateTime.Now.ToString("g")}\n\t{formatter(state, exception)}");
                 }   // using writer
             }   // lock
+        }
+
+        private string ToShortLogLevel(LogLevel logLevel)
+        {
+            switch (logLevel)
+            {
+                case LogLevel.Critical:
+                    return "CRIT";
+
+                case LogLevel.Debug:
+                    return "DBUG";
+
+                case LogLevel.Error:
+                    return "FAIL";
+
+                case LogLevel.Information:
+                    return "INFO";
+
+                case LogLevel.Trace:
+                    return "TRCE";
+
+                case LogLevel.Warning:
+                    return "WARN";
+
+                default:
+                    return "INFO";
+            }
         }
 
         #endregion

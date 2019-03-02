@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using System;
 using System.IO;
 using System.Reflection;
 
@@ -16,7 +17,7 @@ namespace Hyprsoft.Logging.Core
 
         public string Filename { get; set; } = DefaultLogFilename;
 
-        public LogLevel LogLevel { get; set; } = LogLevel.Information;
+        public Func<LogLevel, bool> Filter { get; set; } = logLevel => logLevel != LogLevel.None;
 
         public int MaxFileSizeBytes { get; set; } = DefaultMaxFileSizeBytes;
 
