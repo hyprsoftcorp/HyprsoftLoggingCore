@@ -3,6 +3,13 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+    <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
+    <Authors>Hyprsoft Corporation</Authors>
+    <Product>Hyprsoft Logging Test Web</Product>
+    <Description>Hyprsoft Logging Test Web</Description>
+    <Copyright>Copyright © 2019 by Hyprsoft Corporation</Copyright>
+    <PackageProjectUrl>http://www.hyprsoft.com/</PackageProjectUrl>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
 
