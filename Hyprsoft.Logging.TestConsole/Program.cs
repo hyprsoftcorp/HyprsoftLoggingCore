@@ -28,9 +28,10 @@ namespace Hyprsoft.Logging.TestConsole
 
             #region Not using Dependency Injection
 
-            var factory = new LoggerFactory();
-            factory.AddSimpleFileLogger(LogLevel.Trace);
-            factory.AddConsole(LogLevel.Trace);
+            var factory = LoggerFactory.Create(builder => {
+                builder.AddConsole();
+                builder.AddSimpleFileLogger();
+            });
 
             var logger = factory.CreateLogger<Program>();
             logger.LogCritical("Critical");
