@@ -1,21 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
-    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
-    <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <Authors>Hyprsoft Corporation</Authors>
     <Product>Hyprsoft Logging Test Web</Product>
     <Description>Hyprsoft Logging Test Web</Description>
-    <Copyright>Copyright © 2019 by Hyprsoft Corporation</Copyright>
-    <PackageProjectUrl>http://www.hyprsoft.com/</PackageProjectUrl>
-    <Version>1.0.1</Version>
+    <Copyright>Copyright © 2020 by Hyprsoft Corporation</Copyright>
+    <PackageProjectUrl>https://www.hyprsoft.com/</PackageProjectUrl>
+    <Version>1.0.2</Version>
   </PropertyGroup>
 
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.6" />
   </ItemGroup>
 
 
