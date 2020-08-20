@@ -7,13 +7,13 @@
     <Description>Hyprsoft Logging Test Web</Description>
     <Copyright>Copyright © 2020 by Hyprsoft Corporation</Copyright>
     <PackageProjectUrl>https://www.hyprsoft.com/</PackageProjectUrl>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
   </PropertyGroup>
 
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.6" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.7" />
   </ItemGroup>
 
 
