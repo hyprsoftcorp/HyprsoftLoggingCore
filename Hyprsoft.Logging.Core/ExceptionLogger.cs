@@ -1,7 +1,7 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.IO;
 using System.Reflection;
+using System.Text.Json;
 
 namespace Hyprsoft.Logging.Core
 {
@@ -11,6 +11,10 @@ namespace Hyprsoft.Logging.Core
 
         private readonly object _lock = new object();
         private static ExceptionLogger _instance;
+        private static JsonSerializerOptions _jsonSerializerOptions = new JsonSerializerOptions
+        {
+            WriteIndented = true,
+        };
 
         #endregion
 
@@ -43,7 +47,15 @@ namespace Hyprsoft.Logging.Core
             {
                 var logFilename = Path.Combine(RootFolder, $"{DateTime.Now.ToString(LogFilenameDateFormat)}-{ex.GetType().Name}.{LogFilenameExtension}").ToLower();
                 using (var writer = File.AppendText(logFilename))
-                    writer.Write(JsonConvert.SerializeObject(ex, Formatting.Indented));
+                    writer.Write(JsonSerializer.Serialize(new
+                    {
+                        ex.Message,
+                        ex.StackTrace,
+                        ex.Source,
+                        ex.HResult,
+                        ex.HelpLink,
+                        InnerException = ex.InnerException?.Message
+                    }, _jsonSerializerOptions));
                 return logFilename;
             }
         }
